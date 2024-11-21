@@ -1,4 +1,4 @@
-package distributedcachedemo
+package jincache
 
 type ByteView struct {
 	b []byte

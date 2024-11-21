@@ -1,4 +1,4 @@
-package distributedcachedemo
+package jincache
 
 import (
 	"fmt"

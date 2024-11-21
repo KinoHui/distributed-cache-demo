@@ -1,7 +1,7 @@
 package test
 
 import (
-	discache "distributed-cache-demo"
+	"distributed-cache-demo/jincache"
 	"fmt"
 	"log"
 	"testing"
@@ -15,7 +15,7 @@ var db = map[string]string{
 
 func TestCache(t *testing.T) {
 	loadCounts := make(map[string]int, len(db))
-	gee := discache.NewGroup("scores", 2<<10, discache.GetterFunc(
+	gee := jincache.NewGroup("scores", 2<<10, jincache.GetterFunc(
 		func(key string) ([]byte, error) {
 			log.Println("[SlowDB] search key", key)
 			if v, ok := db[key]; ok {

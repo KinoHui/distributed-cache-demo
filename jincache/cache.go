@@ -1,14 +1,15 @@
-package distributedcachedemo
+package jincache
 
 import (
 	"distributed-cache-demo/lru"
 	"sync"
 )
 
+// 并发控制的cache
 type cache struct {
 	mu         sync.Mutex
 	lru        *lru.Cache
-	cacheBytes int64
+	cacheBytes int64 // 最大缓存大小
 }
 
 func (c *cache) add(key string, value ByteView) {

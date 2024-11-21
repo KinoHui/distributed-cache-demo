@@ -7,7 +7,7 @@ type Cache struct {
 	maxBytes int64 // maxBytes 是允许使用的最大内存
 	nbytes   int64 // nbytes 是当前已使用的内存
 	ll       *list.List
-	cache    map[string]*list.Element
+	cache    map[string]*list.Element // 内存实际的cache
 	// optional and executed when an entry is purged.
 	OnEvicted func(key string, value Value) // 某条记录被移除时的回调函数，可以为 nil
 }
