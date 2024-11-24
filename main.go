@@ -25,19 +25,19 @@ func createGroup() *jincache.Group {
 		}))
 }
 
-func startCacheServer(addr string, addrs []string, gee *jincache.Group) {
+func startCacheServer(addr string, addrs []string, jin *jincache.Group) {
 	peers := jincache.NewHTTPPool(addr)
 	peers.Set(addrs...)
-	gee.RegisterPeers(peers)
+	jin.RegisterPeers(peers)
 	log.Println("jincache is running at", addr)
 	log.Fatal(http.ListenAndServe(addr[7:], peers))
 }
 
-func startAPIServer(apiAddr string, gee *jincache.Group) {
+func startAPIServer(apiAddr string, jin *jincache.Group) {
 	http.Handle("/api", http.HandlerFunc(
 		func(w http.ResponseWriter, r *http.Request) {
 			key := r.URL.Query().Get("key")
-			view, err := gee.Get(key)
+			view, err := jin.Get(key)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -70,9 +70,9 @@ func main() {
 		addrs = append(addrs, v)
 	}
 
-	gee := createGroup()
+	jin := createGroup()
 	if api {
-		go startAPIServer(apiAddr, gee)
+		go startAPIServer(apiAddr, jin)
 	}
-	startCacheServer(addrMap[port], []string(addrs), gee)
+	startCacheServer(addrMap[port], []string(addrs), jin)
 }
