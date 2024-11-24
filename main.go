@@ -47,7 +47,7 @@ func startAPIServer(apiAddr string, jin *jincache.Group) {
 
 		}))
 	log.Println("fontend server is running at", apiAddr)
-	log.Fatal(http.ListenAndServe(apiAddr[7:], nil))
+	log.Fatal(http.ListenAndServe(apiAddr[7:], nil)) // http.ListenAndServe，这个函数会在调用后进入一个阻塞状态，持续监听传入的 HTTP 请求。它不会返回，直到出现错误（例如，端口被占用）或者程序被强制终止。
 
 }
 

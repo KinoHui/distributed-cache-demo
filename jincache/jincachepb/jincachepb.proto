@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package jincachepb;
+
+// 指定 Go 包路径
+option go_package = "/root/go-demos-24/distributed-cache-demo/jincache/jincachepb";
+
+message Request {
+  string group = 1;
+  string key = 2;
+}
+
+message Response {
+  bytes value = 1;
+}
+
+service GroupCache {
+  rpc Get(Request) returns (Response);
+}
